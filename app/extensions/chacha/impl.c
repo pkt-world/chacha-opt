@@ -277,6 +277,17 @@ chacha(const chacha_key *key, const chacha_iv *iv, const unsigned char *in, unsi
 	chacha_opt->chacha(key, iv, in, out, inlen, rounds);
 }
 
+LIB_PUBLIC void
+chacha_ietf(const chacha_key *key, const chacha_iv12 *iv, uint32_t ic, const unsigned char *in, unsigned char *out, size_t inlen, size_t rounds) {
+	chacha_state_internal state;
+	size_t i;
+	for (i = 0; i < 32; i++) state.s[i + 0] = key->b[i];
+	U32TO8(state.s + 32, ic);
+	for (i = 0; i < 12; i++) state.s[i + 36] = iv->b[i];
+	state.rounds = rounds;
+	chacha_opt->chacha_blocks(&state, in, out, inlen);
+}
+
 /*
 	xchacha, chacha with a 192 bit nonce
 */

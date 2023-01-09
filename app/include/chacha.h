@@ -23,6 +23,10 @@ typedef struct chacha_iv_t {
 	unsigned char b[8];
 } chacha_iv;
 
+typedef struct chacha_iv12_t {
+	unsigned char b[12];
+} chacha_iv12;
+
 typedef struct chacha_iv24_t {
 	unsigned char b[24];
 } chacha_iv24;
@@ -35,6 +39,7 @@ LIB_PUBLIC size_t chacha_update(chacha_state *S, const unsigned char *in, unsign
 LIB_PUBLIC size_t chacha_final(chacha_state *S, unsigned char *out);
 
 LIB_PUBLIC void chacha(const chacha_key *key, const chacha_iv *iv, const unsigned char *in, unsigned char *out, size_t inlen, size_t rounds);
+LIB_PUBLIC void chacha_ietf(const chacha_key *key, const chacha_iv12 *iv, uint32_t ic, const unsigned char *in, unsigned char *out, size_t inlen, size_t rounds);
 LIB_PUBLIC void xchacha(const chacha_key *key, const chacha_iv24 *iv, const unsigned char *in, unsigned char *out, size_t inlen, size_t rounds);
 
 LIB_PUBLIC int chacha_startup(void);
