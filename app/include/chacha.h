@@ -2,6 +2,7 @@
 #define CHACHA_H
 
 #include <stddef.h>
+#include <stdint.h>
 
 #if !defined(LIB_PUBLIC)
 	#define LIB_PUBLIC
